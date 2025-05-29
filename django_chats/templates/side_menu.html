@@ -1,0 +1,9 @@
+
+<nav class="flex flex-col gap-1">
+        <a href="{% url 'app:homepage' %}" class="p-2 text-center bg-gray-200 text-xl text-gray-700 hover:text-blue-500 rounded-t-lg">Лента</a>
+        <a href="{% url 'chats:chats_all' %}" class="p-2 text-center bg-gray-200 text-xl text-gray-700 hover:text-blue-500">Чаты</a>
+        <a href="{% url 'app:tasks' %}" class="p-2 text-center bg-gray-200 text-xl text-gray-700 hover:text-blue-500">Задачи</a>
+        <a href="{% url 'app:users' %}" class="p-2 text-center bg-gray-200 text-xl text-gray-700 hover:text-blue-500">Участники</a>
+        <a href="{% url 'app:profile' user.id %}" class="p-2 text-center bg-gray-200 text-xl text-gray-700 hover:text-blue-500 rounded-b-lg">Профиль</a>
+</nav>
+

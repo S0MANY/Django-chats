@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="w-4/5 mx-auto space-y-8">
+
+    <div class="bg-white shadow rounded p-6">
+        <div class="flex items-center space-x-4 mb-4">
+            <img class="h-10 w-10 rounded-full" src="{{ post.user.get_user_image_url }}" alt="avatar">
+            <div>
+                <p class="font-semibold">{{ post.user.username }}</p>
+                <p class="text-sm text-gray-500">{{ post.created_at }}</p>
+            </div>
+        </div>
+        <p class="text-gray-800">{{ post.text }}</p>
+    </div>
+
+    <div class="bg-blue-50 shadow rounded p-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div>
+                {{ form.text.errors }}
+                {{ form.text }}
+            </div>
+
+            <div class="text-right mt-3">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition">
+                    Оставить комментарий
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="space-y-4">
+        {% for comment in comments %}
+        <div class="bg-white border rounded p-4">
+            <div class="flex items-center space-x-3 mb-1">
+                <img class="h-8 w-8 rounded-full" src="{{ user.get_user_image_url }}" alt="avatar">
+                <p class="font-semibold">{{ comment.user.username }}</p>
+                <span class="text-sm text-gray-400">{{ comment.created_at }}</span>
+            </div>
+            <p class="text-gray-800">{{ comment.text }}</p>
+        </div>
+        {% empty %}
+        <p class="text-gray-500 text-center">Комментариев пока нет.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

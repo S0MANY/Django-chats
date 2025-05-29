@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="w-4/5 mx-auto bg-white shadow rounded-lg p-6 h-[600px] overflow-y-auto">
+    <h2 class="text-xl font-semibold mb-4">Чат с {{ chat_with }}</h2>
+    {% if chat_messages %}
+    <div class="space-y-4">
+        {% for message in chat_messages %}
+        {% if message.sender == user %}
+        <div class="justify-end flex flex-row gap-4">
+            <div class="flex flex-col items-end">
+                <p class="bg-blue-500 text-white inline-block px-4 py-2 rounded-lg">
+                    {{ message.text }}
+                </p>
+                <span class="text-sm text-gray-500 mt-1">{{ message.created_at|date:"H:i · d.m.Y" }}</span>
+            </div>
+            <img class="h-16 w-16 rounded-full shadow-lg" src="{{ message.sender.get_user_image_url }}"
+                 alt="Your-Photo">
+        </div>
+        {% else %}
+        <div class="text-left flex flex-row gap-4">
+            <img class="h-16 w-16 rounded-full shadow-lg" src="{{ message.sender.get_user_image_url }}"
+                 alt="Friend-Photo">
+            <div class="flex flex-col items-start">
+                <p class="bg-blue-500 text-white inline-block px-4 py-2 rounded-lg">
+                    {{ message.text }}
+                </p>
+                <span class="text-sm text-gray-500 mt-1">{{ message.created_at|date:"H:i · d.m.Y" }}</span>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="h-full w-full space-y-4 flex justify-center items-center">
+        <div class="bg-gray-300 rounded-xl p-5 text-left flex flex-row gap-4">
+            Нет сообщений с {{ chat_with }}
+        </div>
+    </div>
+    {% endif %}
+
+
+</div>
+<form method="post" class="w-4/5 mx-auto border-t px-4 py-3 flex items-center gap-2">
+    {% csrf_token %}
+    {{ form.text }}
+    <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition"
+    >
+        Отправить
+    </button>
+</form>
+
+{% endblock %}

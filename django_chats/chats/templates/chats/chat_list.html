@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="w-4/5 mx-auto flex justify-center items-center text-2xl font-bold" style="height:50px; width:800px">
+    <h2>Активные чаты</h2>
+</div>
+<ul>
+    {% for obj in object_list %}
+    <a href="{% url 'chats:chat_details' obj.id %}" class="ml-auto text-blue-500">
+        <li class="w-4/5 mb-5 mx-auto bg-white p-4 rounded-lg shadow flex items-center hover:bg-blue-50 transition">
+            <img src="{% if obj.last_sender %}{{ obj.chat_with.get_user_image_url }}{% else %}/static/img/default_image.png{% endif %}"
+                 alt="user-avatar" class="w-12 h-12 rounded-full  flex-shrink-0 mr-4">
+            <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-800">{% if obj.is_group %}Группа: {{ obj.title }}{% else %}Чат с {{ obj.last_sender }}{% endif %}</h3>
+                <p class="text-sm text-gray-500 truncate">
+                    {% if obj.last_message %}<span>{{ obj.last_sender }}:</span> <span>{{ obj.last_message }}{% else %}Нет сообщенией{% endif %}</span>
+                </p>
+            </div>
+        </li>
+    </a>
+    {% empty %}
+    <li class="text-center text-gray-500">Нет доступных чатов</li>
+    {% endfor %}
+</ul>
+{% endblock %}

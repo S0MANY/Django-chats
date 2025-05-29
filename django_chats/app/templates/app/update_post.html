@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="w-4/5 mx-auto p-4 bg-blue-100 rounded-lg shadow-md">
+    <form method="post" class="flex flex-col space-y-4 h-full">
+        {% csrf_token %}
+
+        <div class="flex-1">
+            {{ form.text }}
+        </div>
+
+        <div class="text-right">
+            <button
+                    type="submit"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-semibold transition"
+            >
+                Редактировать
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

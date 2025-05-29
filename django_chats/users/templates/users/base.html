@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Django Chats{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-row gap-20 shadow-2xl items-center justify-center">
+<div>
+    <img class="rounded-2xl" style="height:450px" src="/static/img/logo.png" alt="Логотип">
+</div>
+<div class="w-1/4">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

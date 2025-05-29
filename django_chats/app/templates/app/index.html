@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="w-4/5 p-2 bg-blue-100 mx-auto rounded-lg font-bold " style="height:50px; width:800px">
+    <a class="w-full h-full flex justify-center items-center cursor-pointer" href="{% url 'app:write_post' %}">Добавить
+        пост</a>
+</div>
+<ul>
+    {% for obj in object_list %}
+    <li class="w-4/5 p-2 bg-blue-100 mx-auto rounded-lg mt-7" style="mix-height:100px; width:800px">
+        <div class="flex flex-row justify-between items-center">
+            <div class="flex flex-row gap-2 items-center mt-5 ml-5">
+                <img class="h-12 w-12 rounded-full shadow-2xl" src="{{ obj.author.get_user_image_url }}"
+                     alt="user_photo">
+                <a href="{% url 'app:profile' obj.author.id %}">{{obj.full_name}}</a>
+            </div>
+            <div>
+                {% if user == obj.author %}
+                <a href="{% url 'app:edit_post' obj.id %}"
+                   class="flex flex-row gap-2 items-center mt-5 mr-5 bg-gray-400 p-1 rounded-md cursor-pointer">Edit
+                    Post</a>
+                {% else %}
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="break-words m-5 bg-blue-200 rounded-xl p-2">
+            <p>{{obj.text}}</p>
+        </div>
+        <div class="m-5 flex flex-row gap-5 justify-between">
+            <div class="flex flew-row gap-3">
+                <div class="flex flew-row gap-3">
+                    <div class="flex flex-row gap-2 items-center p-2  rounded-md text-md"><p>{{ obj.likes_amount }}</p>
+                        <img style="height:25px" src="/static/icons/like.png" alt="Иконка лайков"></div>
+                    <a href="{% url 'app:toggle_reaction' obj.id %}"
+                       class="p-2 bg-gray-300 rounded-md text-md hover:bg-gray-400 duration-300 cursor-pointer">Лайк</a>
+                </div>
+                <div class="flex flew-row gap-3">
+                    <div class="flex flex-row gap-2 items-center p-2  rounded-md text-md"><p>{{ obj.comments_amount }}</p> <img style="height:25px" src="/static/icons/comments.png" alt="Иконка комментариев">
+                    </div>
+                    <a href="{% url 'app:post_comments' obj.id %}"
+                       class="p-2 bg-gray-300 rounded-md text-md hover:bg-gray-400 duration-300 cursor-pointer">Комментарии</a>
+                </div>
+            </div>
+            <div class="flex flew-row gap-3 items-center">
+                <p>{{ obj.created_at }}</p>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
