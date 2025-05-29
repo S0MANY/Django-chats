@@ -99,9 +99,8 @@ pip install flake8 isort black
 
 ```ini
 [flake8]
-max-line-length = 88
-extend-ignore = E203, W503
-exclude = .venv, migrations, static, media
+max-line-length = 130
+
 ```
 
 ---
